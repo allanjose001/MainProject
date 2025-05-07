@@ -95,6 +95,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body("Funcao nao implementada.");
     }
 
+    @ExceptionHandler(InvalidDayException.class)
+    public ResponseEntity<String> handleInvalidDayException(InvalidDayException ex) {
+        logger.warn("Dia da semana inválido: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: " + ex.getMessage());
+    }
+
     // =============================== Erros do JPA ==============================
     @ExceptionHandler(ConstraintViolationException.class) //erro de validação que é jogado pelo Model da classe
     public ResponseEntity<String> handleConstraintViolation(ConstraintViolationException ex) {

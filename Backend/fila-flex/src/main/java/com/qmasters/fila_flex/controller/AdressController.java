@@ -35,23 +35,23 @@ public class AdressController {
         return ResponseEntity.ok(adressService.getAllAdress());
     }
     
-    @PostMapping("/create") //globalException não esta capturando os erros de validação do Model
+    @PostMapping("/create") //globalException não está capturando os erros de validação do Model
     public ResponseEntity<Adress> createAdress(@RequestBody AdressDTO adressDTO) {
         var adress = adressService.saveAdress(adressDTO);
         return ResponseEntity.ok(adress);
     }
 
-    @GetMapping("find-id/{id}")
+    @GetMapping("/find-id/{id}")
     public ResponseEntity<Optional<Adress>> getAdressById(@PathVariable Long id) {
         var adress = adressService.findAdressById(id);
-        //é necessario usar throw pois um optional retornar vazio não é identificado como erro pelo globalExceptionHandler
+        //é necessario usar throw, pois um optional retornar vazio não é identificado como erro pelo globalExceptionHandler
         if (adress.isEmpty()) {
             throw new NoSuchElementException("Endereco não encontrado"); 
         }
         return ResponseEntity.ok(adress);
     }
 
-    @DeleteMapping("delete-id/{id}")
+    @DeleteMapping("/delete-id/{id}")
     public ResponseEntity<String> deleteAdressById(@PathVariable Long id) {
         try {
             adressService.deleteAdress(id);

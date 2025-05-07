@@ -44,6 +44,10 @@ public class AppointmentType {
     @OneToMany(mappedBy = "appointmentType", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Evaluation> evaluations = new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "service_schedule_id")
+    private ServiceSchedule serviceSchedule;
+
     //Construtores
 
     public AppointmentType() {}
@@ -103,6 +107,7 @@ public class AppointmentType {
         }
         return null;
     }
+
     public List<Evaluation> getEvaluations() {
         return evaluations;
     }
@@ -157,6 +162,14 @@ public class AppointmentType {
 
     public List<String> getRequiredDocumentation() {
         return appointmentTypeDetails.getRequiredDocumentation();
+    }
+
+    public ServiceSchedule getServiceSchedule() {
+        return serviceSchedule;
+    }
+
+    public void setServiceSchedule(ServiceSchedule serviceSchedule) {
+        this.serviceSchedule = serviceSchedule;
     }
 }
 
