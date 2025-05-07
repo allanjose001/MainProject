@@ -39,7 +39,7 @@ public class AppointmentTypeService {
             CategoryDTO categoryDTO = new CategoryDTO(categoryName);
             categoryService.saveCategory(categoryDTO);
         }
-            
+
         return appointmentTypeRepository.save(appointmentType);
     }
 

@@ -52,6 +52,7 @@ public class SecurityConfig {
             configureAdressEndpoints(authorize);
             configureEvaluationEndpoints(authorize);
             configureQueueEndpoints(authorize);
+            configureServiceSqueduleEndpoints(authorize);
 
             authorize.anyRequest().authenticated();
         })
@@ -128,6 +129,15 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, evaluationEndpoint).permitAll()
             .requestMatchers(HttpMethod.GET, evaluationEndpoint).permitAll()
             .requestMatchers(HttpMethod.DELETE, evaluationEndpoint).permitAll();
+    }
+
+    private void configureServiceSqueduleEndpoints(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authorize) {
+        String[] serviceScheduleEndpoint = {"/service-schedule/**"};
+
+        authorize
+            .requestMatchers(HttpMethod.GET, serviceScheduleEndpoint).permitAll()
+            .requestMatchers(HttpMethod.POST, serviceScheduleEndpoint).permitAll()
+            .requestMatchers(HttpMethod.DELETE, serviceScheduleEndpoint).permitAll();
     }
 
     @Bean //mesmo sem ser chamada, se não for declarada aqui a autenticação não funciona
